@@ -15,10 +15,8 @@ speciesname = np.unique(species)
 
 # ///////////////////////////////////////////
 # Question 2.1 : traçage d'un nuage de points
-fig, (ax, ax2) = plt.subplots(1, 2, figsize=(17, 7))
-
+fig, (ax) = plt.subplots(figsize=(17, 7))
 ax.scatter(petallength, petalwidth)
-
 ax.set_title("Nuage de points : largeur vs longueur des pétales")
 ax.set_ylabel("Petal length")
 ax.set_xlabel("Petal width")
@@ -69,12 +67,14 @@ setosa = petallength[species == "Iris-setosa"]
 versicolor = petallength[species == "Iris-versicolor"]
 virginica = petallength[species == "Iris-virginica"]
 
+
+fig2, ax2 = plt.subplots(figsize=(17, 7))
 ax2.hist(setosa, bins="auto", alpha=0.6, edgecolor="gray", linestyle="--", label="Setosa")
 ax2.hist(versicolor, bins="auto", alpha=0.6, edgecolor="gray", linestyle="--",label="Versicolor")
 ax2.hist(virginica, bins="auto", alpha=0.6, edgecolor="gray", linestyle="--",label="Virginica")
 
 # Question 2.6:
-fig2, ax3 = plt.subplots()
+fig3, ax3 = plt.subplots(figsize=(17, 7))
 ax3.boxplot(
     [setosa, versicolor, virginica],
     labels=["Setosa", "Versicolor", "Virginica"],

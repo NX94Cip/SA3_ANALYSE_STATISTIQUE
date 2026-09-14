@@ -1,3 +1,4 @@
+# CIPRIANI VILLENEUVE
 
 # Question 2.1: Taper et comprendre les commandes Python suivantes:
 from pprint import pprint
@@ -13,7 +14,10 @@ petalwidth = data["petalwidth"]
 species = data["class"]
 speciesname = np.unique(species)
 
-status : bool = False #Permet de skip les graphiques
+print(f"Species : {speciesname}")
+
+save_hist_variants: bool = True
+status : bool = True #Permet de skip les graphiques
 
 # ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 # 2.1 Analyse préalable
@@ -57,7 +61,7 @@ ax1.pie(sizes, labels=labels)
 
 ax2.hist(species, bins=3, edgecolor='black',label=labels)
 
-plt.savefig("graphique_2_2.png")
+# plt.savefig("graphique_2_2.png")
 plt.show(block = status)
 
 # ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,23 +70,60 @@ plt.show(block = status)
 # Question 2.7: Tracer l’histogramme et l’histogramme cumulé. Faire varier le nombre d’intervalles de l’histogramme.
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(17, 7))
+
+
+##########################################################################################
+# intervalle = 10
 intervalle = "auto"
-intervalle = 5
+n  = len(petallength)
+intervalle_Sturge = int(np.ceil(1 + 3.3 * np.log10(n)))
+intervalle_yule = int(np.ceil(2.5 * n**0.25))
+print(f"Intervalle Sturge : {intervalle_Sturge}\nIntervalle Yule : {intervalle_yule}")
+##########################################################################################
 
 
 plt.title(f"Étude de la variable petalLength avec intervalle : {intervalle}")
-
+# ax1.hist(petallength, bins=intervalle_Sturge, edgecolor='black')
 ax1.hist(petallength, bins=intervalle, edgecolor='black')
 ax1.set_title("Histogramme : petallength")
 ax1.set_ylabel("longueur (mm)")
 ax1.set_xlabel("Quantité (qty)")
-
+# ax2.hist(petallength, bins=intervalle_Sturge,cumulative = True, edgecolor='black')
 ax2.hist(petallength, bins=intervalle,cumulative = True, edgecolor='black')
 ax2.set_title("Histogramme cumulatif : petallength")
 ax2.set_ylabel("longueur (mm)")
 ax2.set_xlabel("Quantité (qty)")
 
 
+
+#########################################################################################################
+#Dédié au rapport
+if save_hist_variants:
+
+    liste_intervalles = [5, 10, 15, 20]
+
+    for nb_intervalles in liste_intervalles:
+
+        fig_hist, ax_hist = plt.subplots(figsize=(8, 6))
+
+        ax_hist.hist(
+            petallength,
+            bins=nb_intervalles,
+            edgecolor="black"
+        )
+
+        ax_hist.set_title(
+            f"Histogramme petalLength - {nb_intervalles} intervalles"
+        )
+        ax_hist.set_xlabel("Longueur des pétales")
+        ax_hist.set_ylabel("Effectif")
+
+        nom_fichier = f"histogramme_petallength_{nb_intervalles}_intervalles.png"
+
+        fig_hist.savefig(nom_fichier, dpi=300, bbox_inches="tight")
+
+        plt.close(fig_hist)
+#########################################################################################################
 
 # Question 2.8: Décrire les caractéristiques de l’histogramme et analyser ces caractéristiques en fonction du nombre d’intervalles.
 
@@ -91,7 +132,7 @@ ax2.set_xlabel("Quantité (qty)")
 ax3.boxplot(petallength)
 ax3.set_title("Boïte à moustache : petallength")
 name = "graphique_2_3_interv_"+ str(intervalle) +".png"
-plt.savefig("graphique_2_3_interv_.png")
+# plt.savefig("graphique_2_3_interv_.png")
 plt.show(block = status)
 
 
