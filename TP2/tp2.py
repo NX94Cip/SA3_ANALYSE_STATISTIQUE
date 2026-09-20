@@ -72,7 +72,7 @@ fig2, ax2 = plt.subplots(figsize=(17, 7))
 ax2.hist(setosa, bins="auto", alpha=0.6, edgecolor="gray", linestyle="--", label="Setosa")
 ax2.hist(versicolor, bins="auto", alpha=0.6, edgecolor="gray", linestyle="--",label="Versicolor")
 ax2.hist(virginica, bins="auto", alpha=0.6, edgecolor="gray", linestyle="--",label="Virginica")
-
+ax2.legend()
 # Question 2.6:
 fig3, ax3 = plt.subplots(figsize=(17, 7))
 ax3.boxplot(
