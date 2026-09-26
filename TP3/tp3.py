@@ -34,11 +34,13 @@ def interv_conf_prop_grand_echantillon(data, component, percent, n):
 
 if __name__ == "__main__":
 
+    print("/////////////////////////////////////////////")
     print("PARTIE 2")
+    print("Question 2.1")
     data = np.array([0.82, 0.87, 0.77, 0.96, 0.75, 0.83, 0.87, 0.81])
-    print(interv_conf_inf_30(data, 0.05))
+    print(f"Intervalle de confiance : {interv_conf_inf_30(data, 0.05)}")
 
-
+    print("Question 2.2")
     data = np.array([
     0.84, 0.87, 0.89, 0.73, 0.84, 0.81, 0.88, 0.85,
     0.89, 0.79, 0.79, 0.90, 0.59, 0.75, 0.67, 0.76,
@@ -46,8 +48,10 @@ if __name__ == "__main__":
     0.71, 0.78, 0.59, 0.91, 0.74, 0.68, 0.77, 0.66,
     0.80, 0.74, 1.02, 0.91, 0.55, 0.84, 0.66, 0.77
     ])
-    print(interv_conf_grand_nombres(data, 0.05))
-
+    print(f"Intervalle de confiance : {interv_conf_grand_nombres(data, 0.05)}")
+    
+    print("\n")
+    print("/////////////////////////////////////////////")
     print("PARTIE 3")
     print("Question 3.1")
 
@@ -69,9 +73,10 @@ if __name__ == "__main__":
 
     print("Question 3.2")
     #Formule du cours slide 144
-    n_calc = np.round(((st.norm.ppf(1 - 0.05/2)/0.01)**2)*0.17*(1-0.17))
-    print(n_calc)
-
+    n_calc = np.ceil(((st.norm.ppf(1 - 0.05/2)/0.01)**2)*0.17*(1-0.17))
+    print(f"Quantité n arrondi nécessaire : {n_calc}")
+    print("\n")
+    print("/////////////////////////////////////////////")
     print("PARTIE 4")
     print("Question 4.1")
     n = 50
@@ -85,9 +90,23 @@ if __name__ == "__main__":
     print(prop_data)
     print(f"{casques[0]:<8} : {interv_conf_prop_grand_echantillon(data, casques[0], 0.95, n)}")
 
+    print("Question 4.2")
+    n_calc = np.ceil(((st.norm.ppf(1 - 0.05/2)/0.01)**2)*prop_data*(1-prop_data))
+    print(f"Quantité n arrondi nécessaire : {n_calc}")
 
-    n_calc = np.round(((st.norm.ppf(1 - 0.05/2)/0.01)**2)*prop_data*(1-prop_data))
-    print(n_calc)
+    print("Question 4.3")
 
+    alpha = 0.05
+    erreur = 0.02
+
+    p = 0.5  # valeur qui maximise p * (1 - p)
+    z_alpha_2 = st.norm.ppf(1 - alpha / 2)
+
+    n = np.ceil(
+        (z_alpha_2 / erreur)**2 * p * (1 - p)
+    )
+
+    print("Valeur de p maximisant n :", p)
+    print("Taille minimale de l'échantillon :", int(n))
 
     
